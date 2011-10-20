@@ -10,237 +10,292 @@
 function tccc_default_page_manager_handlers() {
   $handlers = array();
 
-  $handler = new stdClass;
-  $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
-  $handler->api_version = 1;
-  $handler->name = 'node_view_panel_context';
-  $handler->task = 'node_view';
-  $handler->subtask = '';
-  $handler->handler = 'panel_context';
-  $handler->weight = -25;
-  $handler->conf = array(
-    'title' => 'Media Item',
-    'no_blocks' => 0,
-    'pipeline' => 'standard',
-    'css_id' => '',
-    'css' => '',
-    'contexts' => array(),
-    'relationships' => array(),
-    'access' => array(
-      'plugins' => array(
-        0 => array(
-          'name' => 'entity_bundle:node',
-          'settings' => array(
-            'type' => array(
-              'music' => 'music',
-              'paper' => 'paper',
-              'sermon' => 'sermon',
-            ),
-          ),
-          'context' => 'argument_entity_id:node_1',
-          'not' => FALSE,
-        ),
-      ),
-      'logic' => 'and',
-    ),
-  );
-  $display = new panels_display;
-  $display->layout = 'eightfourmedia';
-  $display->layout_settings = array();
-  $display->panel_settings = array(
-    'style_settings' => array(
-      'default' => NULL,
-      'wide-top' => NULL,
-      'left' => NULL,
-      'right' => NULL,
-      'wide-bottom' => NULL,
-      'media-section' => NULL,
-    ),
-  );
-  $display->cache = array();
-  $display->title = '';
-  $display->content = array();
-  $display->panels = array();
-    $pane = new stdClass;
-    $pane->pid = 'new-1';
-    $pane->panel = 'left';
-    $pane->type = 'mediaitem_info';
-    $pane->subtype = 'mediaitem_info';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'override_title' => 0,
-      'override_title_text' => '',
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => array(
-        'width' => '',
-        'prefix' => '',
-        'suffix' => '',
-        'push' => '',
-        'pull' => '',
-        'alpha' => 0,
-        'omega' => 0,
-        'debug' => 1,
-      ),
-      'style' => 'grid',
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 0;
-    $display->content['new-1'] = $pane;
-    $display->panels['left'][0] = 'new-1';
-    $pane = new stdClass;
-    $pane->pid = 'new-2';
-    $pane->panel = 'media-section';
-    $pane->type = 'page_title';
-    $pane->subtype = 'page_title';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'markup' => 'h1',
-      'class' => 'pane-title',
-      'id' => '',
-      'override_title' => 1,
-      'override_title_text' => '',
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 0;
-    $display->content['new-2'] = $pane;
-    $display->panels['media-section'][0] = 'new-2';
-    $pane = new stdClass;
-    $pane->pid = 'new-3';
-    $pane->panel = 'media-section';
-    $pane->type = 'sermon_multimedia';
-    $pane->subtype = 'sermon_multimedia';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'context' => 'argument_entity_id:node_1',
-      'override_title' => 0,
-      'override_title_text' => '',
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => array(
-        'width' => '',
-        'prefix' => '',
-        'suffix' => '',
-        'push' => '',
-        'pull' => '',
-        'alpha' => 0,
-        'omega' => 0,
-        'debug' => 1,
-      ),
-      'style' => 'grid',
-    );
-    $pane->css = array(
-      'css_id' => '',
-      'css_class' => 'clearfix',
-    );
-    $pane->extras = array();
-    $pane->position = 1;
-    $display->content['new-3'] = $pane;
-    $display->panels['media-section'][1] = 'new-3';
-    $pane = new stdClass;
-    $pane->pid = 'new-4';
-    $pane->panel = 'right';
-    $pane->type = 'media_tags';
-    $pane->subtype = 'media_tags';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array();
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => array(
-        'width' => '',
-        'prefix' => '',
-        'suffix' => '',
-        'push' => '',
-        'pull' => '',
-        'alpha' => 0,
-        'omega' => 0,
-        'debug' => 1,
-      ),
-      'style' => 'grid',
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 0;
-    $display->content['new-4'] = $pane;
-    $display->panels['right'][0] = 'new-4';
-    $pane = new stdClass;
-    $pane->pid = 'new-5';
-    $pane->panel = 'wide-bottom';
-    $pane->type = 'sermon_downloads';
-    $pane->subtype = 'sermon_downloads';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'context' => 'argument_entity_id:node_1',
-      'override_title' => 0,
-      'override_title_text' => '',
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => array(
-        'width' => '',
-        'prefix' => '',
-        'suffix' => '',
-        'push' => '',
-        'pull' => '',
-        'alpha' => 0,
-        'omega' => 0,
-        'debug' => 1,
-      ),
-      'style' => 'grid',
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 0;
-    $display->content['new-5'] = $pane;
-    $display->panels['wide-bottom'][0] = 'new-5';
-    $pane = new stdClass;
-    $pane->pid = 'new-6';
-    $pane->panel = 'wide-top';
-    $pane->type = 'resources_header';
-    $pane->subtype = 'resources_header';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'context' => 'empty',
-      'override_title' => 0,
-      'override_title_text' => '',
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => array(
-        'width' => '',
-        'prefix' => '',
-        'suffix' => '',
-        'push' => '',
-        'pull' => '',
-        'alpha' => 0,
-        'omega' => 0,
-        'debug' => 1,
-      ),
-      'style' => 'grid',
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 0;
-    $display->content['new-6'] = $pane;
-    $display->panels['wide-top'][0] = 'new-6';
-  $display->hide_title = PANELS_TITLE_FIXED;
-  $display->title_pane = '0';
-  $handler->conf['display'] = $display;
+
+	$handler = new stdClass;
+	$handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
+	$handler->api_version = 1;
+	$handler->name = 'node_view_panel_context';
+	$handler->task = 'node_view';
+	$handler->subtask = '';
+	$handler->handler = 'panel_context';
+	$handler->weight = -23;
+	$handler->conf = array(
+		'title' => 'Media Item',
+		'no_blocks' => 0,
+		'pipeline' => 'standard',
+		'css_id' => '',
+		'css' => '',
+		'contexts' => array(),
+		'relationships' => array(),
+		'access' => array(
+		  'plugins' => array(
+		    0 => array(
+		      'name' => 'entity_bundle:node',
+		      'settings' => array(
+		        'type' => array(
+		          'music' => 'music',
+		          'paper' => 'paper',
+		          'sermon' => 'sermon',
+		        ),
+		      ),
+		      'context' => 'argument_entity_id:node_1',
+		      'not' => FALSE,
+		    ),
+		    1 => array(
+		      'name' => 'php',
+		      'settings' => array(
+		        'description' => 'Path is /node/*',
+		        'php' => 'return preg_match(\'/^\\/node\\/.*/i\', $_SERVER[\'REQUEST_URI\']);',
+		      ),
+		      'not' => TRUE,
+		    ),
+		  ),
+		  'logic' => 'and',
+		),
+	);
+	$display = new panels_display;
+	$display->layout = 'eightfourmedia';
+	$display->layout_settings = array();
+	$display->panel_settings = array(
+		'style_settings' => array(
+		  'default' => NULL,
+		  'wide-top' => NULL,
+		  'left' => NULL,
+		  'right' => NULL,
+		  'wide-bottom' => NULL,
+		  'media-section' => NULL,
+		),
+	);
+	$display->cache = array();
+	$display->title = '';
+	$display->content = array();
+	$display->panels = array();
+		$pane = new stdClass;
+		$pane->pid = 'new-1';
+		$pane->panel = 'left';
+		$pane->type = 'mediaitem_info';
+		$pane->subtype = 'mediaitem_info';
+		$pane->shown = TRUE;
+		$pane->access = array();
+		$pane->configuration = array(
+		  'override_title' => 0,
+		  'override_title_text' => '',
+		);
+		$pane->cache = array();
+		$pane->style = array(
+		  'settings' => array(
+		    'width' => '',
+		    'prefix' => '',
+		    'suffix' => '',
+		    'push' => '',
+		    'pull' => '',
+		    'alpha' => 0,
+		    'omega' => 0,
+		    'debug' => 1,
+		  ),
+		  'style' => 'grid',
+		);
+		$pane->css = array();
+		$pane->extras = array();
+		$pane->position = 0;
+		$display->content['new-1'] = $pane;
+		$display->panels['left'][0] = 'new-1';
+		$pane = new stdClass;
+		$pane->pid = 'new-2';
+		$pane->panel = 'media-section';
+		$pane->type = 'page_title';
+		$pane->subtype = 'page_title';
+		$pane->shown = TRUE;
+		$pane->access = array();
+		$pane->configuration = array(
+		  'markup' => 'h1',
+		  'class' => 'pane-title',
+		  'id' => '',
+		  'override_title' => 1,
+		  'override_title_text' => '',
+		);
+		$pane->cache = array();
+		$pane->style = array(
+		  'settings' => NULL,
+		);
+		$pane->css = array();
+		$pane->extras = array();
+		$pane->position = 0;
+		$display->content['new-2'] = $pane;
+		$display->panels['media-section'][0] = 'new-2';
+		$pane = new stdClass;
+		$pane->pid = 'new-3';
+		$pane->panel = 'media-section';
+		$pane->type = 'sermon_multimedia';
+		$pane->subtype = 'sermon_multimedia';
+		$pane->shown = TRUE;
+		$pane->access = array();
+		$pane->configuration = array(
+		  'context' => 'argument_entity_id:node_1',
+		  'override_title' => 0,
+		  'override_title_text' => '',
+		);
+		$pane->cache = array();
+		$pane->style = array(
+		  'settings' => array(
+		    'width' => '',
+		    'prefix' => '',
+		    'suffix' => '',
+		    'push' => '',
+		    'pull' => '',
+		    'alpha' => 0,
+		    'omega' => 0,
+		    'debug' => 1,
+		  ),
+		  'style' => 'grid',
+		);
+		$pane->css = array(
+		  'css_id' => '',
+		  'css_class' => 'clearfix',
+		);
+		$pane->extras = array();
+		$pane->position = 1;
+		$display->content['new-3'] = $pane;
+		$display->panels['media-section'][1] = 'new-3';
+		$pane = new stdClass;
+		$pane->pid = 'new-4';
+		$pane->panel = 'right';
+		$pane->type = 'media_tags';
+		$pane->subtype = 'media_tags';
+		$pane->shown = TRUE;
+		$pane->access = array();
+		$pane->configuration = array();
+		$pane->cache = array();
+		$pane->style = array(
+		  'settings' => array(
+		    'width' => '',
+		    'prefix' => '',
+		    'suffix' => '',
+		    'push' => '',
+		    'pull' => '',
+		    'alpha' => 0,
+		    'omega' => 0,
+		    'debug' => 1,
+		  ),
+		  'style' => 'grid',
+		);
+		$pane->css = array();
+		$pane->extras = array();
+		$pane->position = 0;
+		$display->content['new-4'] = $pane;
+		$display->panels['right'][0] = 'new-4';
+		$pane = new stdClass;
+		$pane->pid = 'new-5';
+		$pane->panel = 'wide-bottom';
+		$pane->type = 'sermon_downloads';
+		$pane->subtype = 'sermon_downloads';
+		$pane->shown = TRUE;
+		$pane->access = array();
+		$pane->configuration = array(
+		  'context' => 'argument_entity_id:node_1',
+		  'override_title' => 0,
+		  'override_title_text' => '',
+		);
+		$pane->cache = array();
+		$pane->style = array(
+		  'settings' => array(
+		    'width' => '',
+		    'prefix' => '',
+		    'suffix' => '',
+		    'push' => '',
+		    'pull' => '',
+		    'alpha' => 0,
+		    'omega' => 0,
+		    'debug' => 1,
+		  ),
+		  'style' => 'grid',
+		);
+		$pane->css = array();
+		$pane->extras = array();
+		$pane->position = 0;
+		$display->content['new-5'] = $pane;
+		$display->panels['wide-bottom'][0] = 'new-5';
+		$pane = new stdClass;
+		$pane->pid = 'new-6';
+		$pane->panel = 'wide-top';
+		$pane->type = 'resources_header';
+		$pane->subtype = 'resources_header';
+		$pane->shown = TRUE;
+		$pane->access = array();
+		$pane->configuration = array(
+		  'context' => 'empty',
+		  'override_title' => 0,
+		  'override_title_text' => '',
+		);
+		$pane->cache = array();
+		$pane->style = array(
+		  'settings' => array(
+		    'width' => '',
+		    'prefix' => '',
+		    'suffix' => '',
+		    'push' => '',
+		    'pull' => '',
+		    'alpha' => 0,
+		    'omega' => 0,
+		    'debug' => 1,
+		  ),
+		  'style' => 'grid',
+		);
+		$pane->css = array();
+		$pane->extras = array();
+		$pane->position = 0;
+		$display->content['new-6'] = $pane;
+		$display->panels['wide-top'][0] = 'new-6';
+	$display->hide_title = PANELS_TITLE_FIXED;
+	$display->title_pane = '0';
+	$handler->conf['display'] = $display;
   $handlers['node_view_panel_context'] = $handler;
+
+
+
+	$handler = new stdClass;
+	$handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
+	$handler->api_version = 1;
+	$handler->name = 'node_view_http_response';
+	$handler->task = 'node_view';
+	$handler->subtask = '';
+	$handler->handler = 'http_response';
+	$handler->weight = -22;
+	$handler->conf = array(
+		'title' => 'Media Item Redirect',
+		'contexts' => array(),
+		'relationships' => array(),
+		'code' => '301',
+		'destination' => '%node:url',
+		'access' => array(
+		  'plugins' => array(
+		    0 => array(
+		      'name' => 'node_type',
+		      'settings' => array(
+		        'type' => array(
+		          'music' => 'music',
+		          'paper' => 'paper',
+		          'sermon' => 'sermon',
+		        ),
+		      ),
+		      'context' => 'argument_entity_id:node_1',
+		      'not' => FALSE,
+		    ),
+		    1 => array(
+		      'name' => 'php',
+		      'settings' => array(
+		        'description' => 'Path contains /node/*',
+		        'php' => 'return preg_match(\'/^\\/node\\/.*/i\', $_SERVER[\'REQUEST_URI\']);',
+		      ),
+		      'not' => FALSE,
+		    ),
+		  ),
+		  'logic' => 'and',
+		),
+	);
+  $handlers['node_view_http_response'] = $handler;
+
+
 
   $handler = new stdClass;
   $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
