@@ -75,9 +75,11 @@ function ccb_auth_user_login_validate($form, &$form_state) {
   // API URL
   $url = 'https://' . variable_get('ccb_auth_user') . ':' . variable_get('ccb_auth_pass') . '@' . variable_get('ccb_auth_url');
   
+  // Attempt to load account using the specified username.
+	$account = user_load_by_name($name);
+	
   // Don't try to authenticate user ID 1
-  $account = user_load_by_name($name);
-  if (is_object($account) && $account->uid == 1) {
+  if(is_object($account) && $account->uid == 1) {
     return FALSE;
   }
   
@@ -103,17 +105,36 @@ function ccb_auth_user_login_validate($form, &$form_state) {
       'id' => $id,
     );
     $response = drupal_http_request($url . '?' . http_build_query($settings));
-    
+  
     // Convert response to XML object
     $credentials = new SimpleXMLElement($response->data);
+
+		// Perform a lookup of CCB ID against the Drupal <-> CCB User map.
+		$result = db_query('SELECT uid FROM {ccb_auth_map} WHERE ccb_id = :ccb_id LIMIT 1', array(':ccb_id' => $id));
+		$map = $result->fetchObject();
+
+		// Load account object using UID if present.
+    if(isset($map->uid)){
+			$account = user_load($map->uid);
+		}
     
     // Create or update Drupal account
     require_once DRUPAL_ROOT . '/includes/password.inc';
-    $edit['name'] = $name;
-    $edit['pass'] = user_hash_password($pass);
+    $edit['name'] = (string) $credentials->response->individuals->individual->login;
+    $edit['pass'] = user_hash_password($credentials->response->individuals->individual->password);
     $edit['mail'] = (string) $credentials->response->individuals->individual->email;
     $edit['status'] = 1;
     $account = user_save($account, $edit);
+
+		// If we have just created a new user, save UID <-> CCB_ID mapping to the map table.
+		if(!isset($map->uid)){
+			$map = array('uid' => $account->uid, 'ccb_id' => $id);
+			
+			// If login cannot be mapped, fail login.
+			if(!db_insert('ccb_auth_map')->fields($map)->execute()){
+				return false;
+			}
+		}
     
     // Get CCB groups for user
     $settings = array (
