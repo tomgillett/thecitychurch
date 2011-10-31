@@ -165,7 +165,11 @@ function theme_media($variables) {
       $output .= ' &#124; <span class="series">' . $series->name . '</span>';
     }    
     
-    $output .= !(empty($item->field_bible_references)) ? ' &#124; <span class="bible">' . $item->field_bible_references['und'][0]['safe_value'] . '</span>' : '';
+    $bible = _tccc_linked_bible_references('node', $item, 'field_scriptures');
+    if (!empty($bible)) {
+      $output .= ' &#124; <span class="bible">' . $bible . '</span>';
+    }
+
     if (!empty($item->field_main_text)) {
       
       
@@ -329,7 +333,7 @@ function theme_event($variables) {
 	$event = $variables['event'];
 	if(count($event) > 0) {
 	  $output .= '<div class="promoted-event">';
-	  $output .= '<div class="promoted-event-inner">';
+	  $output .= '<div class="promoted-event-inner clearfix">';
 	  $output .= '<div class="details">';
 		if($image = $event->field_event_image['und'][0]){
 	  $output .= '<div class="image">';
