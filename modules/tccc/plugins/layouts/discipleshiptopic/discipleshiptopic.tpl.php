@@ -16,11 +16,11 @@
   <div style="clear: both"></div>
   
   <div class="content-right grid_7 push_5 alpha">
+    <div class="grid_3 alpha">
+      <?php print $content['content-left']; ?>
+    </div>
+
     <?php print $content['content-right']; ?>
-  </div>
-  
-  <div class="content-left grid_5 pull_7 omega">
-    <?php print $content['content-left']; ?>
   </div>
   
   <div style="clear: both"></div>
