@@ -9,7 +9,6 @@ $plugin = array(
 
 
 function tccc_disc_video_content_type_render($subtype, $conf, $args, $context) {
- 
   $output = '';
 
   $node = node_load($args[0]);
@@ -21,8 +20,10 @@ function tccc_disc_video_content_type_render($subtype, $conf, $args, $context) {
 
     foreach($videos as $video){
       $output .= '<a href="' . $video->url . '" class="vimeo" rel="vimeo">';
-      $output .= theme('image_style', array('path' => get_remote_image_from_url($video->thumbnail_medium), 'style_name' => 'video_medium'));
+      $output .= theme('image_style', array('path' => get_remote_image_from_url($video->thumbnail_large), 'style_name' => 'video_medium'));
       $output .= '</a>';
+
+      $output = $video->thumbnail_large;
     }
   }
                                  
